@@ -254,7 +254,7 @@ encfs_decrypt
 
   **Payload :** `' or Username='bryan'and substring(Password,$i,1)='$c`
 
-* i create a bruteforce [script](exploit-scr/xpath_bf.py) that extract password from database using XPath vulnerability. **payload is worked like a sql boolean based injection.** when `$i=$c` then page return `Username` contact details, and if `$i!=$c` then page return `Invalid credentials.`*where **i** is a int and **c** is a char*
+* i create a bruteforce [script](https://github.com/x00tex/hackTheBox/blob/main/Boxes/linux/Retired/unbalanced/exploits/xpath_bf.py) that extract password from database using XPath vulnerability. **payload is worked like a sql boolean based injection.** when `$i=$c` then page return `Username` contact details, and if `$i!=$c` then page return `Invalid credentials.`*where **i** is a int and **c** is a char*
 
   * it takes some time to extract all password form the database
 
@@ -404,9 +404,9 @@ f91a0994************************
 	
 	  AAAAAAAAAAAA/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 	10.10.10.200 	10.10.10.200
 
-  pi-hole [`savesettings.php`](dump/savesettings.php) is responsible for this vulnerability.
+  pi-hole "savesettings.php" is responsible for this vulnerability.
 
-**[lines 53-57](dump/savesettings.php#L53):** The application first validates the MAC address format using the function preg_match().
+**lines 53-57:** The application first validates the MAC address format using the function preg_match().
 ```
 function validMAC($mac_addr)
 {
@@ -415,7 +415,7 @@ function validMAC($mac_addr)
 }
 ```
 
-**[lines 542-550](demp/savesettings.php#L542):** then check only [html special characters](https://www.php.net/manual/en/function.htmlspecialchars.php) and converts the input to uppercase.
+**lines 542-550:** then check only [html special characters](https://www.php.net/manual/en/function.htmlspecialchars.php) and converts the input to uppercase.
 ```
 $mac = $_POST["AddMAC"];
 if(!validMAC($mac))
@@ -425,7 +425,7 @@ if(!validMAC($mac))
 $mac = strtoupper($mac);
 ```
 
-**[lines 588-592](dump/savesettings.php#L588):** then adds the entry to DHCP using a pihole system command.
+**lines 588-592:** then adds the entry to DHCP using a pihole system command.
 ```
 if(!strlen($error))
 {

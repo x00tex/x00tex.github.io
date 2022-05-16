@@ -678,7 +678,7 @@ If we send message to any user, we can see his reply in first GET listener respo
 
 If we hook `private_recv` listener of admin account to our server, we can read admin messages.
 
-Using the same [CSRF account registration](#csrf-account-registration) technique to trick admin to execute a javascript that executes from admin browser and hook `private_recv` to our http server and intercept all traffic that come through `private_recv` listener.
+Using the same CSRF account registration technique to trick admin to execute a javascript that executes from admin browser and hook `private_recv` to our http server and intercept all traffic that come through `private_recv` listener.
 
 *[from ippsec video](https://www.youtube.com/watch?v=OUjdPa11tGw&t=4770s)*
 ```php

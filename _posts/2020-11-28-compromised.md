@@ -156,7 +156,7 @@ and load bypass.php file in it -
 
 ### USER:www-data shell
 
-**Run [litecart exploit script](scripts/litecart-exploitdb.py)**
+**Run [litecart exploit script](https://github.com/x00tex/hackTheBox/blob/main/Boxes/linux/Retired/compromised/scripts/litecart-exploitdb.py)**
 
 `python litecart-exploitdb.py -t http://10.10.10.207/shop/admin/ -p 'theNextGenSt0r3!~' -u admin`
 ```
