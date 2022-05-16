@@ -1,1 +1,1 @@
-# poorduck's writeups
+# poorduck's write-ups
